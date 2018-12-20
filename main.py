@@ -4,6 +4,8 @@ from typing import collection
 from mitmproxy.http import HTTPFlow
 import requests
 
+from constants import API_PARAMS
+
 
 endpoint = 'https://api.tomtom.com/search/2/geocode/{}.json'
 
@@ -31,7 +33,7 @@ def _geocode_address(address: str) -> Collection[float]:
     """Given an address, return the latitude and longitude values."""
     print(f'[?] Querying address: {endpoint.format(address)}')
     result = requests.get(
-        endpoint.format(address), params=parameters
+        endpoint.format(address), params=API_PARAMS
     ).json()['results'][0]['position']
     print(f'[!] Found location: {result}')
     return result['lat'], result['lon']
